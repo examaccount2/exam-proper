@@ -152,36 +152,30 @@ def selected_date(Date_of_booking, Date_of_return):
     else:
         return True
 
-@app.route('/Booking', methods = ['GET', 'POST'])
+@app.route('/calculator', methods = ['GET', 'POST'])
 def Booking():
     if request.method == 'POST':
         Name = request.form.get('name')
-        Email= request.form.get('email')
-        Date_of_booking = request.form.get('date of booking')
-        date_of_booking_check = past_date(Date_of_booking)
-        if date_of_booking_check == False:
-            return render_template('Error_page.html')
-        elif date_of_booking_check == True:
-            Date_of_return = request.form.get('date of return')
-            date_of_return_check = selected_date(Date_of_booking,Date_of_return)
-            if date_of_return_check == False:
-                return render_template('Error_page.html')
-            elif date_of_return_check == True:
-                Equipment = request.form.get('equipment')
-                pass_check = Equipment_check(Equipment)
-                if pass_check == True:
-                    add_booking = os.path.isfile('Bookings.csv')
-                    with open('Bookings.csv', 'a', newline = '' ) as file:
-                        writer = csv.writer(file)
-                        if not add_booking:
-                            writer.writerow(['Name', 'Email', 'Date of Booking', 'Date of Return', 'Equipment' ])
-                            writer.writerow([ Name, Email, Date_of_booking, Date_of_return, Equipment ])
-                            return render_template('Conformation.html')
-                        writer.writerow([ Name, Email, Date_of_booking, Date_of_return, Equipment ])
-                        return render_template('Conformation.html')
-                elif pass_check == False:
-                    return render_template('Error_page.html')
-    return render_template('Booking.html')
+        electric = int(request.form.get("electric bill number"))
+        fuel = int(request.form.get('fuel bill number'))        
+        heating = int(request.form.get("natural gas or heating bill"))
+        car = float(request.form.get('car millage'))
+        shortplane = int(request.form.get("short plane"))
+        longplane = int(request.form.get('long plane'))
+
+        
+        answer = footprintcalculator(electric,fuel,heating,car,shortplane,longplane)
+
+        render_template(
+        'calculator.html',
+        answer = "10"
+        )
+
+
+    return render_template(
+        'calculator.html',
+        )
+
 
 @app.route('/Confirmation')
 def Confirmation():
@@ -347,6 +341,31 @@ def return_check(Equipment, Amount_returned):
             else:
                 return False
     tries += 1
+
+def footprintcalculator(electric,fuel,heating,car,shortplane,longplane):
+    number = 0
+    number2 = 0
+    number = number
+    number = electric * 105
+    number += fuel * 105
+    number += heating * 113
+    number2 += car * 79
+    number += shortplane * 1100
+    number += longplane * 4400
+    # newspaper = input ('do you recycle newspaper')
+    # if newspaper == 'Yes' or 'yes':
+    #     number +=184
+    #    print(number)
+    # newspaper = input ('do you recycle tins and cans')
+    # if newspaper == 'Yes' or 'yes':
+    #     number +=166
+    #     print(number)
+    number *= 100
+    number = float(number)
+    number += number2
+    number /= 100
+    print(number)
+
 
 
 if __name__ == '__main__':

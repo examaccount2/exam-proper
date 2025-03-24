@@ -10,6 +10,10 @@
             </h1>
     </head>
     <body>
+
+        <div 
+            answer = {{answer}}> </div>
+
         <h2 style="color:rgb(0, 0, 0);">
             
         </h2>
@@ -35,7 +39,21 @@
                 <select name = "equipment" placeholder = "Enter name of equipment. " required>
                     <option value="Reflector Kits">Reflector Kits</option>
                 </select>
-                <button type = "submit">Submit</button>
+                <button id = "submit">Submit</button>
+     
+        
         </form>
+    
+
+        <h1 id="calcanswer"></h1>
     </body>
+
 </html>
+
+<script>
+    const answer = document.getElementById('submit');
+    answer.addEventListener('click', function() {
+
+        document.getElementById('calcanswer').innerText = 
+    })
+</script>
