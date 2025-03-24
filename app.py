@@ -109,12 +109,11 @@ def Staff_sign_in():
             return render_template('Staff_homepage.html')
     return render_template('Staff_sign_in.html')
 
-# This code renders the homepage for students which allows them to make a booking for equipment, plan to put a CSV file which can be viewed to see what is in stock. 
+ 
 @app.route('/Homepage')
 def Homepage():
     return render_template('Homepage.html')
-# This define lets the user sign up to the site which requires them to  input their student number, password and email. 
-# Which is then stored in the CSV file.
+
 @app.route('/Register', methods = ['GET', 'POST'])
 def Register():
     if request.method == 'POST':
@@ -134,7 +133,7 @@ def Register():
             return render_template('Homepage.html')
     return render_template('Register.html')
 
-# Checks for the current date and if the date for the booking is today or later.
+
 def past_date(Date_of_booking):
     Date_hold = datetime.fromisoformat(Date_of_booking)
     Todays_date = datetime.now()
@@ -143,7 +142,7 @@ def past_date(Date_of_booking):
     else:
         return True
 
-# Check to see if the date of return is after the date of booking.
+
 def selected_date(Date_of_booking, Date_of_return):
     Date_hold_for_booking = datetime.fromisoformat(Date_of_booking)
     Todays_date = datetime.now()
@@ -153,8 +152,6 @@ def selected_date(Date_of_booking, Date_of_return):
     else:
         return True
 
-# This code makes the bookings for the students to make booking for equipment, they need to enter their data just so we are sure about who is making the booking. 
-# Once the data has been entered into the HTML it is then append to the CSV and then displays a confirmation message allowing them back to the homepage. 
 @app.route('/Booking', methods = ['GET', 'POST'])
 def Booking():
     if request.method == 'POST':
@@ -186,25 +183,22 @@ def Booking():
                     return render_template('Error_page.html')
     return render_template('Booking.html')
 
-# This is the code that leads to the HTML file for conformation so the user knows their booking has been made. 
 @app.route('/Confirmation')
 def Confirmation():
     CSV_check()
     os.replace('C:/Users/phant/Documents/FOL/Equipment_log.html', 'C:/Users/phant/Documents/FOL/templates/Equipment_log.html')
     return render_template('Confirmation.html')
 
-# This takes staff to their homepage where they also can make bookings.
+
 @app.route('/Staff')
 def Staff():
     return render_template('Staff_homepage.html')
 
-# This displays a error for the user, this is triggered if the equipment they booked is out of stock.
+
 @app.route('/Staff_error')
 def Staff_error():
     return render_template('Staff_error.html')
 
-# This code makes the bookings for the Staff to make booking for equipment, they need to enter their data just so we are sure about who is making the booking. 
-# Once the data has been entered into the HTML it is then append to the CSV and then displays a confirmation message allowing them back to the homepage. 
 @app.route('/Staff_booking', methods = ['GET', 'POST'])
 def Staff_booking():
     if request.method == 'POST':
@@ -236,8 +230,7 @@ def Staff_booking():
                     return render_template('Staff_error.html')
     return render_template('Staff_booking.html')
 
-# Next few lines are how the code renders the html files to what is required of it. 
-# This shows the Staff member that their booking has been logged in the file. 
+
 @app.route('/Staff_conformation')
 def staff_confirmation():
     CSV_check_staff()
@@ -246,8 +239,7 @@ def staff_confirmation():
     os.replace('C:/Users/phant/Documents/FOL/Student_log.html', 'C:/Users/phant/Documents/FOL/templates/Student_log.html')
     return render_template('Staff_conformation.html')
 
-# This is meant for students so they know who to contact if they any questions about the system. 
-# I do plan on asking people to test it get feedback on it. 
+
 @app.route('/Contact_information')
 def Contact_information():
     return render_template('Contact_information.html')
@@ -268,14 +260,14 @@ def student_table():
 def error():
     return render_template('Error_page.html')
 
-# This informs staff that the return has gone through and updates the CSV the equipment CSV so all users know how much of a item is left. 
+
 @app.route('/Staff_conformation_for_returns')
 def staff_confirmation_for_returns():
     CSV_check()
     os.replace('C:/Users/phant/Documents/FOL/Equipment_log.html', 'C:/Users/phant/Documents/FOL/templates/Equipment_log.html')
     return render_template('Staff_conformation_for_returns.html')
 
-# This allows a staff member to log the return of equipment. 
+
 @app.route('/Staff_return', methods = ['GET', 'POST'])
 def Staff_return():
     if request.method == 'POST':
@@ -291,7 +283,7 @@ def Staff_return():
             return render_template('Staff_error_for_returns.html')
     return render_template('Staff_return.html')
 
-# This checks to see if the equipment is available to use. 
+
 def Equipment_check(Equipment):
     count= int()
     for row in open('Student.csv'):
@@ -304,9 +296,7 @@ def Equipment_check(Equipment):
         tries = 0
         row_search = 0
         name_check = test[row_search].get('Name', '').strip() 
-        # Now the line above goes into the CSV file and gets the first value it finds and checks it against the users input (which is below), if the data doesn't match it run back through the CSV - (next line)
-        # with a plus one to the row it checks, so if it finds it on row two, it keeps the two value and checks to see if the password on the row matches as well, if it does then it loads the page back for - (next line)
-        # them to try again. 
+
         while name_check != Equipment and tries <=3 and row_search < len(test):              
             row_search +=1
             name_check = test[row_search].get('Name').strip()
@@ -319,7 +309,7 @@ def Equipment_check(Equipment):
                 for row in test:
                     fix_amount = int(number_check) -1
                     print(fix_amount)
-                    # The code below allows the CSV to have a single cell edited so if a item is booked the amount is decreased on the CSV so it stays accurate. 
+
                     df = pd.read_csv('Equipment.csv')
                     df.Amount[row_search] = fix_amount
                     df.to_csv('Equipment.csv', index=False)
@@ -328,7 +318,6 @@ def Equipment_check(Equipment):
                 return False
     tries += 1
 
-# Allows for the student's to return the booked items. 
 def return_check(Equipment, Amount_returned):
     count= int()
     for row in open('Student.csv'):
@@ -340,10 +329,7 @@ def return_check(Equipment, Amount_returned):
             test.append(row)
         tries = 0
         row_search = 0
-        name_check = test[row_search].get('Name', '').strip() 
-        # Now the line above goes into the CSV file and gets the first value it finds and checks it against the users input (which is below), if the data doesn't match it run back through the CSV - (next line)
-        # with a plus one to the row it checks, so if it finds it on row two, it keeps the two value and checks to see if the password on the row matches as well, if it does then it loads the page back for - (next line)
-        # them to try again. 
+        name_check = test[row_search].get('Name', '').strip()  
         while name_check != Equipment and tries <=3 and row_search < len(test):              
             row_search +=1
             name_check = test[row_search].get('Name').strip()
@@ -354,7 +340,6 @@ def return_check(Equipment, Amount_returned):
                 for row in test:
                     fix_amount = int(number_check) + Amount_returned
                     print(fix_amount)
-                    # The code below allows the CSV to have a single cell edited so if a item is booked the amount is decreased on the CSV so it stays accurate. 
                     df = pd.read_csv('Equipment.csv')
                     df.Amount[row_search] = fix_amount
                     df.to_csv('Equipment.csv', index=False)
@@ -363,6 +348,6 @@ def return_check(Equipment, Amount_returned):
                 return False
     tries += 1
 
-# This code here runs the files so that the site works. 
+
 if __name__ == '__main__':
     app.run(debug=True)
