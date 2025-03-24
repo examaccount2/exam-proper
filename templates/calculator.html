@@ -1,16 +1,26 @@
+
 <!doctype html>
 <html>
-    <style>
-
-    </style>
     <head>
+
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-        <title>calculator</title>
-        <h1>calculator test 1 
-            </h1>
+        <title>homepage</title>
+        
     </head>
     <body>
+        <div>
+            <h1 >
+                Rolsa Technologies</h1>
+        </div>
+        
+        <nav>
+            <a href="/index" class = "button button2" >homepage</a>
 
+            <a href="/store" class = "button button2">    Store   </a>  
+            <a href="/calculator" class = "button button1">calculator   </a>
+            <a href="/news" class = "button button2" >News and Updates   </a>
+        </nav>
+    
         <div 
             answer = {{answer}}> </div>
 
@@ -43,17 +53,20 @@
      
         
         </form>
+        
     
 
         <h1 id="calcanswer"></h1>
+        <a href="/login" class = "button button2">login</a>
+        <a href="/register" class = "button button2 ">register</a>
     </body>
 
 </html>
 
-<script>
+<!-- <script>
     const answer = document.getElementById('submit');
     answer.addEventListener('click', function() {
 
         document.getElementById('calcanswer').innerText = 
     })
-</script>
+</script> -->
