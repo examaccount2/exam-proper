@@ -10,18 +10,18 @@
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
-            margin-top: 20px;
+            margin-top: 10px;
             cursor: pointer;
         }
         .button:hover { 
             box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24),0 17px 50px 0 rgba(0,0,0,0.19); 
             }
           
-          .button2 {padding: 15px 32px;margin-top: 0px;} 
-                    
+          .button2 {padding: 15px 32px;margin-top: -10px;} 
+          .button3 {margin-left: 1170px; margin-top: -1000px }          
         </style>
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-        <title>homepage</title>
+        <title>store</title>
         
     </head>
     <body>
@@ -31,9 +31,8 @@
         </div>
         
         <nav>
-            <a href="/index" class = "button button1" >homepage</a>
-
-            <a href="/store" class = "button button2">    Store   </a>  
+            <a href="/index" class = "button button2" >homepage</a>
+            <a href="/store" class = "button button1">    Store   </a>  
             <a href="/calculator" class = "button button2">calculator   </a>
             <a href="/news" class = "button button2" >News and Updates   </a>
         </nav>
@@ -42,7 +41,7 @@
 
              
             
-            <h2> homepage information
+            <h2> store information
                 
             </h2>
 
@@ -51,7 +50,8 @@
             </form>
 
             <a href="/login" class = "button button2">login</a>
-
+            <a href="/register" class = "button button2">register</a>
+            <a href = "/cart" class="button button2 button3">cart</a>
         </body>
     </body>
 </html>
