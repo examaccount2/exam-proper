@@ -70,8 +70,14 @@ def Register():
             return render_template('Homepage.html')
     return render_template('Register.html')
 
+
+@app.route('/splurg', methods = ['GET', 'POST'])
+def calculator2():
+    return render_template('splurg.html')
+
+
 @app.route('/calculator', methods = ['GET', 'POST'])
-def Booking():
+def calculator():
     if request.method == 'POST':
         Name = request.form.get('name')
         electric = int(request.form.get("electric bill number"))
@@ -80,19 +86,16 @@ def Booking():
         car = float(request.form.get('car millage'))
         shortplane = int(request.form.get("short plane"))
         longplane = int(request.form.get('long plane'))
-
-        
-        answer = footprintcalculator(electric,fuel,heating,car,shortplane,longplane)
+ 
+        thing1 = footprintcalculator (electric,fuel,heating,car,shortplane,longplane)
 
         render_template(
-        'calculator.html',
-        answer = "10"
+        'splurg.html',
+        thing = thing1
         )
 
 
-    return render_template(
-        'calculator.html',
-        )
+    return render_template('calculator.html', thing = 10 )
 
 
 @app.route('/Error_page')
@@ -121,6 +124,7 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane):
     number += number2
     number /= 100
     print(number)
+
 
 
 
