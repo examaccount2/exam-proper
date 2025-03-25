@@ -1,0 +1,1 @@
+this folder contains the information to be used in the news and updates section of the website they can be altered as wanted and even add new ones if the writer adds them to the directory in the newsrandom.py file and increases the randomgenerator and adds the name to the csv  

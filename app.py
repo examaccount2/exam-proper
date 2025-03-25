@@ -4,6 +4,7 @@ import os
 from flask import Flask, render_template, request
 from datetime import *
 import pandas as pd
+import newsrandom as NR 
 app = Flask(__name__) 
 
 @app.route('/')
@@ -72,7 +73,8 @@ def Register():
 
 
 @app.route('/splurg', methods = ['GET', 'POST'])
-def calculator2():
+def splurg():
+    Thing = calculator()
     return render_template('splurg.html')
 
 
@@ -86,22 +88,34 @@ def calculator():
         car = float(request.form.get('car millage'))
         shortplane = int(request.form.get("short plane"))
         longplane = int(request.form.get('long plane'))
- 
-        thing1 = footprintcalculator (electric,fuel,heating,car,shortplane,longplane)
+        newspaper = request.form.get("newspaper")
+        tins = request.form.get("tinsandcans")
 
-        render_template(
-        'splurg.html',
-        thing = thing1
+        print (newspaper , tins)
+        thing1 = footprintcalculator (electric,fuel,heating,car,shortplane,longplane,newspaper,tins)
+        if thing1 == 0.0:
+            result1 = ""
+        elif thing1 >0.0 and thing1 == float:
+            result1 = answerfunction(thing1)
+        else:
+            result1 = "error, try the calculator without negitives"
+            thing1 = ""
+
+        return render_template(
+        'calculator.html',
+        thing = thing1,
+        result = result1 
         )
 
 
-    return render_template('calculator.html', thing = 10 )
+    return render_template('calculator.html')
 
 
 @app.route('/Error_page')
 def error():
     return render_template('Error_page.html')
-def footprintcalculator(electric,fuel,heating,car,shortplane,longplane):
+
+def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper,tins):
     number = 0
     number2 = 0
     number = number
@@ -111,22 +125,30 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane):
     number2 += car * 79
     number += shortplane * 1100
     number += longplane * 4400
-    # newspaper = input ('do you recycle newspaper')
-    # if newspaper == 'Yes' or 'yes':
-    #     number +=184
-    #    print(number)
-    # newspaper = input ('do you recycle tins and cans')
-    # if newspaper == 'Yes' or 'yes':
-    #     number +=166
-    #     print(number)
+    number += 350
+    if newspaper == "True":
+        number -=184
+    if tins == "True":
+        number -=166
     number *= 100
     number = float(number)
     number += number2
     number /= 100
-    print(number)
+    if number == 0.0:
+        return ""
+    elif number > 0.0 and number == float:
+        return number
+    else:
+        return -1
 
-
-
-
+def answerfunction(thing1):
+    if thing1 < 6000.00:
+        return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions"
+    elif thing1 > 6000.00 and thing1 < 16000.00:
+        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes"
+    elif thing1 > 16000.00 and thing1 < 22000.00: 
+        return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision"
+    elif thing1 > 22000.00:
+        return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically"
 if __name__ == '__main__':
     app.run(debug=True)
