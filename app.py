@@ -10,7 +10,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def first_page():
-   return render_template('index.html')
+   hpinfo = homepageinforamtion()
+   return render_template('index.html', hpinfo = hpinfo)
 
 @app.route('/index')
 def back_to_start():
@@ -72,12 +73,6 @@ def Register():
                 writer.writerow([ Student_number, Password, Email ])
             return render_template('Homepage.html')
     return render_template('Register.html')
-
-
-@app.route('/splurg', methods = ['GET', 'POST'])
-def splurg():
-    Thing = calculator()
-    return render_template('splurg.html')
 
 
 @app.route('/calculator', methods = ['GET', 'POST'])
@@ -142,6 +137,13 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper
         return number
     else:
         return -1
+
+
+def homepageinforamtion():
+        with open(f"news and updates files/companyinformation.txt", 'r') as file:
+            content = file.read()
+            return content
+
 
 def answerfunction(thing1):
     if thing1 < 6000.00:
