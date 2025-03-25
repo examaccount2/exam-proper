@@ -1,10 +1,11 @@
 
 import csv
-import os
 from flask import Flask, render_template, request
 from datetime import *
 import pandas as pd
-import newsrandom as NR 
+import articlechoice as AC
+
+
 app = Flask(__name__) 
 
 @app.route('/')
@@ -33,7 +34,8 @@ def cart ():
 
 @app.route('/news')
 def news_and_updates ():
-    return render_template ('news.html')
+    article = AC.article()
+    return render_template ('news.html',article = article)
 
 # @app.route('/sign_in', methods = ['GET', 'POST'])
 # def sign_in():
@@ -150,5 +152,6 @@ def answerfunction(thing1):
         return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision"
     elif thing1 > 22000.00:
         return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically"
+
 if __name__ == '__main__':
     app.run(debug=True)
