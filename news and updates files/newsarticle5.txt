@@ -1,1 +1,17 @@
-the fitness grand pacer test is a multistage aerobic555555555
+5. New AI opportunities help fight climate change
+Industries are pivoting to make the most of AI for identifying trends, creating reports, and generating predictions. These are extremely valuable tools in business, and they have a valuable place in the fight against climate change, too.
+
+AI is great for digging into data, and we have a whole planet’s worth of information on water levels, global temperatures, material harvesting, biodiversity loss, and so much more that folds into the larger picture that is climate change. 
+
+Manually parsing through this data to create accurate climate models and predictions isn’t easy, but AI can do it in minutes. And with a little expert help and redirection, improved models and analysis across climate issues is extremely valuable for scientists and decision makers.
+
+Climate champions and world leaders are collaborating to see how machine learning can identify problems, generate solutions, and improve sustainability at scale. The Institute for Experiential AI even has an AI for Climate and Sustainability focus area to see just how much AI can do to support the climate. 
+
+It’s a relatively new and somewhat underfunded venture, but philanthropy like Bezos Earth Funds help. This organization revealed a $100 million grant to support AI development for climate initiatives.
+
+AI considerations
+While AI technology shows a lot of promise for advancing climate initiatives and research, it has its flaws. Some AI training processes, particularly large language models used with chatbots, produce significant greenhouse gas emissions. Once they’re live, maintaining AI servers also takes a lot of electricity.  
+
+Still, simpler models aren’t nearly as emission heavy, and use case matters. While some companies use AI to identify opportunities to improve supply chain sustainability, others use it to expand oil production operations. 
+
+For all of the good and bad, AI’s here to stay. And it’s exciting to see more support and research to facilitate positive change via AI.
