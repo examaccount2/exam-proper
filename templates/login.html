@@ -25,6 +25,19 @@
         </nav>
 
         <body>
+            <form method = "post" action = "{{ url_for('login') }}">
+                <p style="color:rgb(0, 0, 0);">
+                Users Name
+                    <br> <input type = "text" name = "name" placeholder = "Enter your name. " required> <br>
+                password
+                    <br> <input type = "text" name = "password" placeholder = "Enter the wanted password. " required> <br> 
+                email
+                    <br> <input type = "text" name = "email" placeholder = "Enter your email. " required> <br> 
+                <p style="color:rgb(0, 0, 0);">
+                <br>
+                </select>
+                 <button name = "button" value ="True" type = submit>Submit</button>
+            
 
              
             
@@ -32,8 +45,6 @@
                 
             </h2>
 
-            <a href="/login" class = "button button2 ">login</a>
-            <a href="/register" class = "button button2 ">register</a>
 
         </body>
     </body>

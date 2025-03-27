@@ -1,10 +1,11 @@
-
+import os
 import csv
 from flask import Flask, render_template, request
 from datetime import *
 import pandas as pd
 import articlechoice as AC
 
+login_check = False
 
 app = Flask(__name__) 
 
@@ -38,46 +39,44 @@ def news_and_updates ():
     article = AC.article()
     return render_template ('news.html',article = article)
 
-# @app.route('/sign_in', methods = ['GET', 'POST'])
-# def sign_in():
-#     if request.method == 'POST':
-#         Student_number = request.form.get('student_number', type=str)
-#         if len(Student_number) != 8:
-#             return render_template('index.html') 
-#         if Student_number.__contains__('E'):
-#             return render_template('index.html') 
-#         Password = request.form.get('password', type=str)
-#         print(Student_number, Password)
-#         pass_check = details_check(Student_number, Password)
-#         if pass_check == True:
-#             CSV_check()
-#             os.replace('C:/Users/phant/Documents/FOL/Equipment_log.html', 'C:/Users/phant/Documents/FOL/templates/Equipment_log.html')
-#             return render_template('Homepage.html')
-#     return render_template('index.html')
+@app.route('/login', methods = ['GET', 'POST'])
+def sign_in():
+    if request.method == 'POST':
+        name = request.form.get('name', type=str)
+        Password = request.form.get('password', type=str)
+        print(name, Password)
+        pass_check = details_check(name, Password)
+        if pass_check == True:
+           global login_check
+           login_check = True
+           return render_template('calculator.html')
+    return render_template('index.html')
 
-@app.route('/Register', methods = ['GET', 'POST'])
+@app.route('/register', methods = ['GET', 'POST'])
 def Register():
     if request.method == 'POST':
-        Student_number = request.form.get('student number')
-        if len(Student_number) != 8:
-            return render_template('Register.html')
+        name = request.form.get('name')
         Password = request.form.get('password')
         Email = request.form.get('email')
-        add_user = os.path.isfile('Student.csv')
-        with open('Student.csv', 'a', newline = '' ) as file:
+        button = request.form.get('button')
+        add_user = os.path.isfile('login.csv')
+
+        print( name , Password, Email, button)
+        with open('login.csv', 'a', newline = '' ) as file:
             writer = csv.writer(file)
             if not add_user:
-                writer.writerow(['Student Number', 'Password', 'Email' ])
-                writer.writerow([  Student_number, Password, Email  ])
+                writer.writerow(['name', 'Password', 'Email' ])
+                writer.writerow([ name , Password, Email  ])
             else:
-                writer.writerow([ Student_number, Password, Email ])
-            return render_template('Homepage.html')
-    return render_template('Register.html')
+                writer.writerow([ name, Password, Email ])
+            return render_template('index.html')
+    return render_template('register.html')
 
 
 @app.route('/calculator', methods = ['GET', 'POST'])
 def calculator():
     if request.method == 'POST':
+        
         Name = request.form.get('name')
         electric = int(request.form.get("electric bill number"))
         fuel = int(request.form.get('fuel bill number'))        
@@ -89,6 +88,7 @@ def calculator():
         tins = request.form.get("tinsandcans")
 
         print (newspaper , tins)
+        print(login_check)
         thing1 = footprintcalculator (electric,fuel,heating,car,shortplane,longplane,newspaper,tins)
         if thing1 == 0.0:
             result1 = ""
@@ -107,6 +107,32 @@ def calculator():
 
     return render_template('calculator.html')
 
+
+def details_check(name, Password):
+    count= int()
+    for row in open('login.csv'):
+        count+= 1
+    test = []
+    with open('login.csv', 'r') as file:
+        csv_reader = csv.DictReader(file)
+        for row in csv_reader:
+            test.append(row)
+        tries = 0
+        row_search = 0
+        name_check = test[row_search].get('name', '').strip() 
+        # Now the line above goes into the CSV file and gets the first value it finds and checks it against the users input (which is below), if the data doesn't match it run back through the CSV - (next line)
+        # with a plus one to the row it checks, so if it finds it on row two, it keeps the two value and checks to see if the password on the row matches as well, if it does then it loads the page back for - (next line)
+        # them to try again. 
+        while name_check != name and tries <=3 and row_search < len(test):              
+            row_search +=1
+            name_check = test[row_search].get('name').strip()
+        else:
+            password_check = test[row_search].get('password').strip()
+            if password_check == Password and name_check == name:
+                return True
+            else:
+                return False
+    tries += 1
 
 @app.route('/Error_page')
 def error():
