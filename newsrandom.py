@@ -12,7 +12,6 @@ def newschoice():
         csv_reader = csv.DictReader(file)
         for row in csv_reader:
             test.append(row)
-        tries = 0
         row_search = 0
         name_check = test[row_search].get('number', '').strip()
         while name_check != num and row_search < len(test):
@@ -22,7 +21,6 @@ def newschoice():
                 row_search = 1
             name_check = int(name_check)
             if name_check == num:
-
                 row = num -2
                 column = 'article' 
                 with open('newsnames.csv', 'r') as file:
@@ -39,7 +37,7 @@ def newschoice():
 
 
 if __name__ == '__main__':
-    print(details_check_staff())
+    print(newschoice())
 
 
 

@@ -88,21 +88,31 @@ def calculator():
         newspaper = request.form.get("newspaper")
         tins = request.form.get("tinsandcans")
 
-        print (newspaper , tins)
-        print(login_check)
         thing1 = footprintcalculator (electric,fuel,heating,car,shortplane,longplane,newspaper,tins)
+
         if thing1 == 0.0:
+            waste = ""
             result1 = ""
-        elif thing1 >0.0 and thing1 == float:
+        elif thing1 > 0.0:
+            waste = "pounds of waste"
             result1 = answerfunction(thing1)
-        else:
+        elif thing1 < 0.0:
             result1 = "error, try the calculator without negitives"
             thing1 = ""
+            waste = ""
+        else:
+            # worst case scenario if the system fully brakes beyond how it could
+            print(thing1)
+            result1 = "error, if you see this contact the site admin and provide information what was was done so the error can be addressed"
+            thing1 = ""
+            waste = ""
+
 
         return render_template(
         'calculator.html',
         thing = thing1,
-        result = result1 
+        result = result1,
+        waste = waste
         )
 
 
@@ -156,8 +166,9 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper
         number -=166
     number *= 100
     number = float(number)
-    number += number2
+    number += float(number2)
     number /= 100
+
     if number == 0.0:
         return ""
     elif number > 0.0 and number == float:

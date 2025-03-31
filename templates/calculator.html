@@ -34,26 +34,26 @@
         </h2>
             <!-- The action code is to trigger the code in the app.py file so the user can actually affect the code and files. -->
             <form method = "post" action = "{{ url_for('calculator') }}">
-                <p style="color:rgb(0, 0, 0);">
+                <p>
                 Users Name</p>
                     <input type = "text" name = "name" placeholder = "Enter name. " required>
-                <p style="color:rgb(0, 0, 0);">
+                <p>
                 monthly electric bill | monthly fuel bill</p>
                     <input type = "number" name = "electric bill number" placeholder = "enter your most recent electric bill " required>
                     <input type = "number" name = "fuel bill number" placeholder = "enter your most recent fuel bill " required>
-                <p style="color:rgb(0, 0, 0);">
+                <p>
                 natural gas or heating bill | total yearly car millage </p>                    
                 <input type = "number" name = "natural gas or heating bill" placeholder = "enter your most recent natural gas or heating bill " required>
                 <input type = "number" name = "car millage" placeholder = "enter your total car millage of the year " required>
-                <p style="color:rgb(0, 0, 0);">
+                <p>
                 short plane ride | long plane ride</p>                    
                     <input type = "number" name = "short plane" placeholder = "flights shorter than 4 hours" required>
                     <input type = "number" name = "long plane" placeholder = "flights longer than 4 hours" required>
-                <p style="color:rgb(0, 0, 0);">
+                <p>
                 do you recycle newspaper</p>
                 <input type = "checkbox" name = "newspaper" value = "True" id = "newsrecycle">
                 <label for =  "newsrecycle"> tick for yes</label>
-                <p style="color:rgb(0, 0, 0);">
+                <p>
                     do you recycle tins and aluminum cans</p>
                 <input type = "checkbox" name = "tinsandcans" value = "True" id = "tinsrecycle">
                 <label for =  "tinsrecycle"> tick for yes</label>
@@ -68,7 +68,7 @@
     
 
         <p type = text> your total for the carbon eemisions are: <br>
-            {{thing}} pounds of waste <br>
+            {{thing}} {{waste}} <br>
             {{result}} </p>
         <a href="/login" class = "button button2">login</a>
         <a href="/register" class = "button button2 ">register</a>
