@@ -2,6 +2,8 @@ import random
 import pandas as pd
 import csv
 
+#takes a random number from the range of 1 - 10 and turns it into the name for a txt file from the csv to be used for the news randomiser
+
 def newschoice():
     num = random.randint(1,10)
     test = []

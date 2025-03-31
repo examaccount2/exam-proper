@@ -1,10 +1,15 @@
-
 <!doctype html>
 <html>
     <head>
-
+        <style>
+                  
+          .button2 {padding: 15px 32px;margin-top: -10px;} 
+          .button3 {margin-left: 1170px}    
+     
+        </style>
+        <!-- the style sheet -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-        <title>homepage</title>
+        <title>calculator</title>
         
     </head>
     <body>
@@ -14,8 +19,8 @@
         </div>
         
         <nav>
+            <!-- so it can link easily to other pages -->
             <a href="/index" class = "button button2" >homepage</a>
-
             <a href="/store" class = "button button2">    Store   </a>  
             <a href="/calculator" class = "button button1">calculator   </a>
             <a href="/news" class = "button button2" >News and Updates   </a>

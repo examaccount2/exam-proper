@@ -4,11 +4,12 @@
         <style>
                   
           .button2 {padding: 15px 32px;margin-top: -10px;} 
-          .button3 {margin-left: 1170px}      
+          .button3 {margin-left: 1170px}    
      
         </style>
+        <!-- the style sheet -->
         <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
-        <title>store</title>
+        <title>register</title>
         
     </head>
     <body>
@@ -18,6 +19,7 @@
         </div>
         
         <nav>
+            <!-- so it can link easily to other pages -->
             <a href="/index" class = "button button2" >homepage</a>
             <a href="/store" class = "button button2">    Store   </a>  
             <a href="/calculator" class = "button button2">calculator   </a>
@@ -29,6 +31,7 @@
              
             
             <h2>  register 
+                <!--  the resester software so the code can link to the csv correctly and edit it for login to work -->
                 <form method = "post" action = "{{ url_for('register') }}">
                     <p style="color:rgb(0, 0, 0);">
                     Users Name

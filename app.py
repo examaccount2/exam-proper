@@ -4,43 +4,42 @@ from flask import Flask, render_template, request
 from datetime import *
 import articlechoice as AC
 
-login_check = False
-
 app = Flask(__name__) 
+
+# renders the first page with the page information written into the txt file
 
 @app.route('/')
 def first_page():
    hpinfo = homepageinforamtion()
    return render_template('index.html', hpinfo = hpinfo)
 
+# rerenders the first page if the user relinks back to it
 @app.route('/index')
 def back_to_start():
    return render_template('index.html')
 
+# renders the store
 @app.route('/store')
 def store ():   
-
     return render_template ('store.html')
 
-@app.route('/login')
-def login ():
-    return render_template ('login.html')
 
-@app.route('/register')
-def register ():
-    return render_template ('register.html')
 
+# renders the cart
 @app.route('/cart')
 def cart ():
     return render_template ('cart.html')
 
+# renders the news area
 @app.route('/news')
 def news_and_updates ():
     article = AC.article()
     return render_template ('news.html',article = article)
 
+# renders the login page
 @app.route('/login', methods = ['GET', 'POST'])
 def sign_in():
+    # looks through the csv to check wether the name and password are correct
     if request.method == 'POST':
         name = request.form.get('name', type=str)
         Password = request.form.get('password', type=str)
@@ -52,9 +51,11 @@ def sign_in():
            return render_template('calculator.html')
     return render_template('index.html')
 
+# renders the regester page
 @app.route('/register', methods = ['GET', 'POST'])
 def Register():
-    if request.method == 'POST':
+    if request.method == 'POST': 
+        # alters the csv so that the user can log in later
         name = request.form.get('name')
         Password = request.form.get('password')
         Email = request.form.get('email')
@@ -72,11 +73,11 @@ def Register():
             return render_template('index.html')
     return render_template('register.html')
 
-
+# renders the calulator
 @app.route('/calculator', methods = ['GET', 'POST'])
 def calculator():
     if request.method == 'POST':
-        
+        #takes the html inputs and puts them into variables for the calcualtor to use
         Name = request.form.get('name')
         electric = int(request.form.get("electric bill number"))
         fuel = int(request.form.get('fuel bill number'))        
@@ -109,6 +110,7 @@ def calculator():
 
 
 def details_check(name, Password):
+    # checks to see if the name and password are correct for the login to work
     count= int()
     for row in open('login.csv'):
         count+= 1
@@ -120,9 +122,6 @@ def details_check(name, Password):
         tries = 0
         row_search = 0
         name_check = test[row_search].get('name', '').strip() 
-        # Now the line above goes into the CSV file and gets the first value it finds and checks it against the users input (which is below), if the data doesn't match it run back through the CSV - (next line)
-        # with a plus one to the row it checks, so if it finds it on row two, it keeps the two value and checks to see if the password on the row matches as well, if it does then it loads the page back for - (next line)
-        # them to try again. 
         while name_check != name and tries <=3 and row_search < len(test):              
             row_search +=1
             name_check = test[row_search].get('name').strip()
@@ -134,10 +133,12 @@ def details_check(name, Password):
                 return False
     tries += 1
 
+# renders the store
 @app.route('/Error_page')
 def error():
     return render_template('Error_page.html')
 
+# the calualtor tat takes the numbers rom the html and does the calulations for them to be output into the csv
 def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper,tins):
     number = 0
     number2 = 0
@@ -164,6 +165,7 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper
     else:
         return -1
 
+# the cart csv code that doesnt work sue to it not being in my skill set to get right
 def cart_enter(panel,meter,charger):
     count = int()
     for row in open('login.csv'):
@@ -177,9 +179,6 @@ def cart_enter(panel,meter,charger):
             tries = 0
             row_search = 0
             item_check = test[row_search].get('name', '').strip() 
-            # Now the line above goes into the CSV file and gets the first value it finds and checks it against the users input (which is below), if the data doesn't match it run back through the CSV - (next line)
-            # with a plus one to the row it checks, so if it finds it on row two, it keeps the two value and checks to see if the password on the row matches as well, if it does then it loads the page back for - (next line)
-            # them to try again. 
             while name_check != "panel" and tries <=3 and row_search < len(test):              
                 row_search +=1
                 name_check = test[row_search].get('name').strip()
@@ -187,22 +186,23 @@ def cart_enter(panel,meter,charger):
                 test[row_search] += 1 
         tries += 1
 
-
+# the information for the homapage to work correctly
 def homepageinforamtion():
         with open(f"news and updates files/companyinformation.txt", 'r') as file:
             content = file.read()
             return content
 
-
+# for after the calulator number to be more bespoke to the user 
 def answerfunction(thing1):
     if thing1 < 6000.00:
-        return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions", option_1
+        return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions"
     elif thing1 > 6000.00 and thing1 < 16000.00:
-        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes" , option_2
+        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes"
     elif thing1 > 16000.00 and thing1 < 22000.00: 
-        return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision", option_3
+        return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision"
     elif thing1 > 22000.00:
-        return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically" , option_4
+        return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically"
 
+# to make the code run correctly
 if __name__ == '__main__':
     app.run(debug=True)
