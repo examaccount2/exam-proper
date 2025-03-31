@@ -2,7 +2,6 @@ import os
 import csv
 from flask import Flask, render_template, request
 from datetime import *
-import pandas as pd
 import articlechoice as AC
 
 login_check = False
@@ -19,7 +18,8 @@ def back_to_start():
    return render_template('index.html')
 
 @app.route('/store')
-def store ():
+def store ():   
+
     return render_template ('store.html')
 
 @app.route('/login')
@@ -164,6 +164,29 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper
     else:
         return -1
 
+def cart_enter(panel,meter,charger):
+    count = int()
+    for row in open('login.csv'):
+        count+= 1
+    test = []
+    if panel == True:
+        with open('login.csv', 'r') as file:
+            csv_reader = csv.DictReader(file)
+            for row in csv_reader:
+                test.append(row)
+            tries = 0
+            row_search = 0
+            item_check = test[row_search].get('name', '').strip() 
+            # Now the line above goes into the CSV file and gets the first value it finds and checks it against the users input (which is below), if the data doesn't match it run back through the CSV - (next line)
+            # with a plus one to the row it checks, so if it finds it on row two, it keeps the two value and checks to see if the password on the row matches as well, if it does then it loads the page back for - (next line)
+            # them to try again. 
+            while name_check != "panel" and tries <=3 and row_search < len(test):              
+                row_search +=1
+                name_check = test[row_search].get('name').strip()
+            else:
+                test[row_search] += 1 
+        tries += 1
+
 
 def homepageinforamtion():
         with open(f"news and updates files/companyinformation.txt", 'r') as file:
@@ -173,13 +196,13 @@ def homepageinforamtion():
 
 def answerfunction(thing1):
     if thing1 < 6000.00:
-        return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions"
+        return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions", option_1
     elif thing1 > 6000.00 and thing1 < 16000.00:
-        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes"
+        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes" , option_2
     elif thing1 > 16000.00 and thing1 < 22000.00: 
-        return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision"
+        return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision", option_3
     elif thing1 > 22000.00:
-        return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically"
+        return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically" , option_4
 
 if __name__ == '__main__':
     app.run(debug=True)
