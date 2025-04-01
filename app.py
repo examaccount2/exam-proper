@@ -38,7 +38,7 @@ def news_and_updates ():
 
 # renders the login page
 @app.route('/login', methods = ['GET', 'POST'])
-def sign_in():
+def login():
     # looks through the csv to check wether the name and password are correct
     if request.method == 'POST':
         name = request.form.get('name', type=str)
@@ -48,12 +48,12 @@ def sign_in():
         if pass_check == True:
            global login_check
            login_check = True
-           return render_template('calculator.html')
-    return render_template('index.html')
+           return render_template('index.html')
+    return render_template('login.html')
 
 # renders the register page
 @app.route('/register', methods = ['GET', 'POST'])
-def Register():
+def register():
     if request.method == 'POST': 
         # alters the csv so that the user can log in later
         name = request.form.get('name')
