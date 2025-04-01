@@ -77,7 +77,7 @@ def Register():
 @app.route('/calculator', methods = ['GET', 'POST'])
 def calculator():
     if request.method == 'POST':
-        #takes the html inputs and puts them into variables for the calcualtor to use
+        #takes the html inputs and puts them into variables for the calculator to use
         Name = request.form.get('name')
         electric = int(request.form.get("electric bill number"))
         fuel = int(request.form.get('fuel bill number'))        
@@ -97,7 +97,7 @@ def calculator():
             waste = "pounds of waste"
             result1 = answerfunction(thing1)
         elif thing1 < 0.0:
-            result1 = "error, try the calculator without negitives"
+            result1 = "error, try the calculator without negatives"
             thing1 = ""
             waste = ""
         else:
@@ -148,7 +148,7 @@ def details_check(name, Password):
 def error():
     return render_template('Error_page.html')
 
-# the calualtor tat takes the numbers rom the html and does the calulations for them to be output into the csv
+# the calculator tat takes the numbers rom the html and does the calculations for them to be output into the csv
 def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper,tins):
     number = 0
     number2 = 0
@@ -176,7 +176,7 @@ def footprintcalculator(electric,fuel,heating,car,shortplane,longplane,newspaper
     else:
         return -1
 
-# the cart csv code that doesnt work sue to it not being in my skill set to get right
+# the cart csv code that does not work sue to it not being in my skill set to get right
 def cart_enter(panel,meter,charger):
     count = int()
     for row in open('login.csv'):
@@ -197,20 +197,20 @@ def cart_enter(panel,meter,charger):
                 test[row_search] += 1 
         tries += 1
 
-# the information for the homapage to work correctly
+# the information for the homepage to work correctly
 def homepageinforamtion():
         with open(f"news and updates files/companyinformation.txt", 'r') as file:
             content = file.read()
             return content
 
-# for after the calulator number to be more bespoke to the user 
+# for after the calculator number to be more bespoke to the user 
 def answerfunction(thing1):
     if thing1 < 6000.00:
         return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions"
     elif thing1 > 6000.00 and thing1 < 16000.00:
         return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes"
     elif thing1 > 16000.00 and thing1 < 22000.00: 
-        return "not terrible but you can do better, here is a link to our store for recomendations for reducing emmision"
+        return "not terrible but you can do better, here is a link to our store for recommendations for reducing emissions"
     elif thing1 > 22000.00:
         return "you must really try hard in order to reduce your impact on the environment, here are good ways of doing so dramatically"
 
