@@ -10,10 +10,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def first_page():
-   hpinfo = homepageinforamtion()
+   hpinfo = homepageinformation()
    return render_template('index.html', hpinfo = hpinfo)
 
-# rerenders the first page if the user relinks back to it
+# rerenders the first page if the user re-links back to it
 @app.route('/index')
 def back_to_start():
    return render_template('index.html')
@@ -51,7 +51,7 @@ def sign_in():
            return render_template('calculator.html')
     return render_template('index.html')
 
-# renders the regester page
+# renders the register page
 @app.route('/register', methods = ['GET', 'POST'])
 def Register():
     if request.method == 'POST': 
@@ -73,7 +73,7 @@ def Register():
             return render_template('index.html')
     return render_template('register.html')
 
-# renders the calulator
+# renders the calculator
 @app.route('/calculator', methods = ['GET', 'POST'])
 def calculator():
     if request.method == 'POST':
@@ -198,7 +198,7 @@ def cart_enter(panel,meter,charger):
         tries += 1
 
 # the information for the homepage to work correctly
-def homepageinforamtion():
+def homepageinformation():
         with open(f"news and updates files/companyinformation.txt", 'r') as file:
             content = file.read()
             return content
@@ -208,7 +208,7 @@ def answerfunction(thing1):
     if thing1 < 6000.00:
         return "congratulations, you are below the threshold and are an exceptional at reducing your own emissions"
     elif thing1 > 6000.00 and thing1 < 16000.00:
-        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emmissions with tiny life changes"
+        return "not bad, you are doing well and are below average but you can do better, we can direct you to a part of our forum section on good ways of getting rid of emissions with tiny life changes"
     elif thing1 > 16000.00 and thing1 < 22000.00: 
         return "not terrible but you can do better, here is a link to our store for recommendations for reducing emissions"
     elif thing1 > 22000.00:

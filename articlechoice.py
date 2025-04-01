@@ -1,5 +1,5 @@
 import newsrandom as NR 
-#imports the newsrandom python file as a usable module similar to using pandas or any other non inbuilt pyhton module
+#imports the newsrandom python file as a usable module similar to using pandas or any other non inbuilt python module
 
 # opens the txt file for the news html to use
 def article():
